@@ -250,7 +250,10 @@ const Komentar = () => {
                     .single();
                 
                 if (error && error.code !== 'PGRST116') {
-                    console.error('Error fetching pinned comment:', error);
+                    // Silent fail for pinned comment fetch
+                    if (error.code === '406') {
+                        // Supabase 406 - table permissions issue, ignore silently
+                    }
                     return;
                 }
                 
@@ -258,7 +261,7 @@ const Komentar = () => {
                     setPinnedComment(data);
                 }
             } catch (error) {
-                console.error('Error fetching pinned comment:', error);
+                // Error fetching pinned comment, use fallback
             }
         };
 
@@ -275,7 +278,7 @@ const Komentar = () => {
                 .order('created_at', { ascending: false });
             
             if (error) {
-                console.error('Error fetching comments:', error);
+                // Error fetching comments
                 return;
             }
             
@@ -292,7 +295,7 @@ const Komentar = () => {
                     event: '*', 
                     schema: 'public', 
                     table: 'portfolio_comments',
-                    filter: 'is_pinned=eq.false'
+                    filter: 'is_pinned.eq.false'
                 }, 
                 () => {
                     fetchComments(); // Refresh comments when changes occur
@@ -351,7 +354,7 @@ const Komentar = () => {
             }
         } catch (error) {
             setError('Failed to post comment. Please try again.');
-            console.error('Error adding comment: ', error);
+            // Error adding comment
         } finally {
             setIsSubmitting(false);
         }
@@ -436,7 +439,7 @@ const Komentar = () => {
                     )}
                 </div>
             </div>
-            <style jsx>{`
+            <style>{`
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 6px;
                 }

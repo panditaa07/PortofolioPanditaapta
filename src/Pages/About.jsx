@@ -7,53 +7,57 @@ import 'aos/dist/aos.css'
 const Header = memo(() => (
   <div className="text-center lg:mb-8 mb-2 px-[5%]">
     <div className="inline-block relative group">
-      <h2 
-        className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]" 
+      <h2
+        className="text-4xl md:text-5xl font-bold text-gradient font-heading"
         data-aos="zoom-in-up"
         data-aos-duration="600"
       >
         About Me
       </h2>
     </div>
-    <p 
-      className="mt-2 text-gray-400 max-w-2xl mx-auto text-base sm:text-lg flex items-center justify-center gap-2"
+    <p
+      className="mt-2 text-text-muted max-w-2xl mx-auto text-base sm:text-lg flex items-center justify-center gap-2 font-body"
       data-aos="zoom-in-up"
       data-aos-duration="800"
     >
-      <Sparkles className="w-5 h-5 text-purple-400" />
+      <Sparkles className="w-5 h-5 text-accent-purple" />
       Transforming ideas into digital experiences
-      <Sparkles className="w-5 h-5 text-purple-400" />
+      <Sparkles className="w-5 h-5 text-accent-purple" />
     </p>
   </div>
 ));
 
 const ProfileImage = memo(() => (
   <div className="flex justify-end items-center sm:p-12 sm:py-0 sm:pb-0 p-0 py-2 pb-2">
-    <div 
-      className="relative group" 
+    <div
+      className="relative group"
       data-aos="fade-up"
       data-aos-duration="1000"
     >
       {/* Optimized gradient backgrounds with reduced complexity for mobile */}
       <div className="absolute -inset-6 opacity-[25%] z-0 hidden sm:block">
-        <div className="absolute inset-0 bg-gradient-to-r from-violet-600 via-indigo-500 to-purple-600 rounded-full blur-2xl animate-spin-slower" />
-        <div className="absolute inset-0 bg-gradient-to-l from-fuchsia-500 via-rose-500 to-pink-600 rounded-full blur-2xl animate-pulse-slow opacity-50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-600 via-cyan-500 to-teal-400 rounded-full blur-2xl animate-float opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-accent-purple via-accent-blue to-accent-purple rounded-full blur-2xl animate-spin-slower" />
+        <div className="absolute inset-0 bg-gradient-to-l from-accent-blue via-accent-purple to-accent-blue rounded-full blur-2xl animate-pulse-slow opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-accent-blue via-accent-purple to-accent-blue rounded-full blur-2xl animate-float opacity-50" />
       </div>
 
       <div className="relative">
-        <div className="w-72 h-72 sm:w-80 sm:h-80 rounded-full overflow-hidden shadow-[0_0_40px_rgba(120,119,198,0.3)] transform transition-all duration-700 group-hover:scale-105">
-          <div className="absolute inset-0 border-4 border-white/20 rounded-full z-20 transition-all duration-700 group-hover:border-white/40 group-hover:scale-105" />
-          
+        <div className="w-72 h-72 sm:w-80 sm:h-80 rounded-full overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.45)] transform transition-all duration-700 group-hover:scale-105">
+          <div className="absolute inset-0 border-4 border-white/20 rounded-full z-20 transition-all duration-700 group-hover:border-accent-purple/40 group-hover:scale-105" />
+
           {/* Optimized overlay effects - disabled on mobile */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 z-10 transition-opacity duration-700 group-hover:opacity-0 hidden sm:block" />
-          <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 via-transparent to-blue-500/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden sm:block" />
-          
-          <img
-            src="/Photo.jpg"
+          <div className="absolute inset-0 bg-gradient-to-t from-accent-purple/20 via-transparent to-accent-blue/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden sm:block" />
+
+            <img
+                src="Photo.jpg" // Update to remove leading slash
             alt="Profile"
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
             loading="lazy"
+            onError={(e) => {
+              // Failed to load Photo.jpg, trying fallback
+              e.target.src = "/Photo.png";
+            }}
           />
 
           {/* Advanced hover effects - desktop only */}
@@ -70,15 +74,15 @@ const ProfileImage = memo(() => (
 
 const StatCard = memo(({ icon: Icon, color, value, label, description, animation }) => (
   <div data-aos={animation} data-aos-duration={1300} className="relative group">
-    <div className="relative z-10 bg-gray-900/50 backdrop-blur-lg rounded-2xl p-6 border border-white/10 overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl h-full flex flex-col justify-between">
+    <div className="relative z-10 glass-card rounded-2xl p-6 overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_40px_rgba(0,0,0,0.45)] h-full flex flex-col justify-between">
       <div className={`absolute -z-10 inset-0 bg-gradient-to-br ${color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
-      
+
       <div className="flex items-center justify-between mb-4">
-        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white/10 transition-transform group-hover:rotate-6">
-          <Icon className="w-8 h-8 text-white" />
+        <div className="w-16 h-16 rounded-full flex items-center justify-center glass-bg transition-transform group-hover:rotate-6">
+          <Icon className="w-8 h-8 text-text-primary" />
         </div>
-        <span 
-          className="text-4xl font-bold text-white"
+        <span
+          className="text-4xl font-bold text-text-primary font-heading"
           data-aos="fade-up-left"
           data-aos-duration="1500"
           data-aos-anchor-placement="top-bottom"
@@ -88,8 +92,8 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
       </div>
 
       <div>
-        <p 
-          className="text-sm uppercase tracking-wider text-gray-300 mb-2"
+        <p
+          className="text-sm uppercase tracking-wider text-text-secondary mb-2 font-body"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-anchor-placement="top-bottom"
@@ -97,15 +101,15 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
           {label}
         </p>
         <div className="flex items-center justify-between">
-          <p 
-            className="text-xs text-gray-400"
+          <p
+            className="text-xs text-text-muted font-body"
             data-aos="fade-up"
             data-aos-duration="1000"
             data-aos-anchor-placement="top-bottom"
           >
             {description}
           </p>
-          <ArrowUpRight className="w-4 h-4 text-white/50 group-hover:text-white transition-colors" />
+          <ArrowUpRight className="w-4 h-4 text-text-secondary group-hover:text-accent-purple transition-colors" />
         </div>
       </div>
     </div>
@@ -117,7 +121,7 @@ const AboutPage = () => {
   const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
     const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
     const storedCertificates = JSON.parse(localStorage.getItem("certificates") || "[]");
-    
+
     const startDate = new Date("2021-11-06");
     const today = new Date();
     const experience = today.getFullYear() - startDate.getFullYear() -
@@ -134,12 +138,12 @@ const AboutPage = () => {
   useEffect(() => {
     const initAOS = () => {
       AOS.init({
-        once: false, 
+        once: false,
       });
     };
 
     initAOS();
-    
+
     // Debounced resize handler
     let resizeTimer;
     const handleResize = () => {
@@ -158,7 +162,7 @@ const AboutPage = () => {
   const statsData = useMemo(() => [
     {
       icon: Code,
-      color: "from-[#6366f1] to-[#a855f7]",
+      color: "from-accent-purple to-accent-blue",
       value: totalProjects,
       label: "Total Projects",
       description: "Innovative web solutions crafted",
@@ -166,7 +170,7 @@ const AboutPage = () => {
     },
     {
       icon: Award,
-      color: "from-[#a855f7] to-[#6366f1]",
+      color: "from-accent-blue to-accent-purple",
       value: totalCertificates,
       label: "Certificates",
       description: "Professional skills validated",
@@ -174,7 +178,7 @@ const AboutPage = () => {
     },
     {
       icon: Globe,
-      color: "from-[#6366f1] to-[#a855f7]",
+      color: "from-accent-purple to-accent-blue",
       value: YearExperience,
       label: "Years of Experience",
       description: "Continuous learning journey",
@@ -184,7 +188,7 @@ const AboutPage = () => {
 
   return (
     <div
-      className="h-auto pb-[10%] text-white overflow-hidden px-[5%] sm:px-[5%] lg:px-[10%] mt-10 sm-mt-0" 
+      className="h-auto pb-[10%] text-text-primary overflow-hidden px-[5%] sm:px-[5%] lg:px-[10%] mt-10 sm-mt-0"
       id="About"
     >
       <Header />
@@ -192,25 +196,25 @@ const AboutPage = () => {
       <div className="w-full mx-auto pt-8 sm:pt-12 relative">
         <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="space-y-6 text-center lg:text-left">
-            <h2 
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold"
+            <h2
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading"
               data-aos="fade-right"
               data-aos-duration="1000"
             >
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
+              <span className="text-gradient">
                 Hello, I'm
               </span>
-              <span 
-                className="block mt-2 text-gray-200"
+              <span
+                className="block mt-2 text-text-primary"
                 data-aos="fade-right"
                 data-aos-duration="1300"
               >
                 Pandita Apta SyujaDhipura
               </span>
             </h2>
-            
-            <p 
-              className="text-base sm:text-lg lg:text-xl text-gray-400 leading-relaxed text-justify pb-4 sm:pb-0"
+
+            <p
+              className="text-base sm:text-lg lg:text-xl text-text-muted leading-relaxed text-justify pb-4 sm:pb-0 font-body"
               data-aos="fade-right"
               data-aos-duration="1500"
             >
@@ -218,42 +222,42 @@ const AboutPage = () => {
             </p>
 
                {/* Quote Section */}
-      <div 
-        className="relative bg-gradient-to-br from-[#6366f1]/5 via-transparent to-[#a855f7]/5 border border-gradient-to-r border-[#6366f1]/30 rounded-2xl p-4 my-6 backdrop-blur-md shadow-2xl overflow-hidden"
+      <div
+        className="relative glass-card border border-accent-purple/30 rounded-2xl p-4 my-6 shadow-2xl overflow-hidden"
         data-aos="fade-up"
         data-aos-duration="1700"
       >
         {/* Floating orbs background */}
-        <div className="absolute top-2 right-4 w-16 h-16 bg-gradient-to-r from-[#6366f1]/20 to-[#a855f7]/20 rounded-full blur-xl"></div>
-        <div className="absolute -bottom-4 -left-2 w-12 h-12 bg-gradient-to-r from-[#a855f7]/20 to-[#6366f1]/20 rounded-full blur-lg"></div>
-        
+        <div className="absolute top-2 right-4 w-16 h-16 bg-gradient-to-r from-accent-purple/20 to-accent-blue/20 rounded-full blur-xl"></div>
+        <div className="absolute -bottom-4 -left-2 w-12 h-12 bg-gradient-to-r from-accent-blue/20 to-accent-purple/20 rounded-full blur-lg"></div>
+
         {/* Quote icon */}
-        <div className="absolute top-3 left-4 text-[#6366f1] opacity-30">
+        <div className="absolute top-3 left-4 text-accent-purple opacity-30">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
           </svg>
         </div>
-        
-        <blockquote className="text-gray-300 text-center lg:text-left italic font-medium text-sm relative z-10 pl-6">
+
+        <blockquote className="text-text-secondary text-center lg:text-left italic font-medium text-sm relative z-10 pl-6 font-body">
           "Leveraging AI as a professional tool, not a replacement."
         </blockquote>
       </div>
 
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">
-              <a href="https://drive.google.com/drive/folders/1BOm51Grsabb3zj6Xk27K-iRwI1zITcpo" className="w-full lg:w-auto">
-              <button 
+              <a href="https://drive.google.com/file/d/1d7B-dKmqUM5K37XNuQ6vgjKiflQvO2bR/view?usp=sharing" className="w-full lg:w-auto">
+              <button
                 data-aos="fade-up"
                 data-aos-duration="800"
-                className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 shadow-lg hover:shadow-xl "
+                className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-accent-purple to-accent-blue text-text-primary font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 shadow-lg hover:shadow-xl font-body"
               >
                 <FileText className="w-4 h-4 sm:w-5 sm:h-5" /> Download CV
               </button>
               </a>
               <a href="#Portofolio" className="w-full lg:w-auto">
-              <button 
+              <button
                 data-aos="fade-up"
                 data-aos-duration="1000"
-                className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg border border-[#a855f7]/50 text-[#a855f7] font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 hover:bg-[#a855f7]/10 "
+                className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg border border-accent-blue/50 text-accent-blue font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 hover:bg-accent-blue/10 font-body"
               >
                 <Code className="w-4 h-4 sm:w-5 sm:h-5" /> View Projects
               </button>
@@ -264,13 +268,7 @@ const AboutPage = () => {
           <ProfileImage />
         </div>
 
-        <a href="#Portofolio">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 cursor-pointer">
-            {statsData.map((stat) => (
-              <StatCard key={stat.label} {...stat} />
-            ))}
-          </div>
-        </a>
+
       </div>
 
       <style jsx>{`
