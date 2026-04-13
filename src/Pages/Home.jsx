@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
-import { Github, Mail, ExternalLink, Instagram, Sparkles } from "lucide-react";
+import { Github, Mail, ExternalLink, Instagram, Linkedin, Sparkles } from "lucide-react";
 import Lottie from "lottie-react";
 import animationData from "../assets/Lottie.json";
 import AOS from 'aos';
@@ -81,7 +81,8 @@ const WORDS = ["Businessman", "Trader", "Content Creator"];
 const TECH_STACK = ["HTML, CSS, JavaScript", "React.js", "PHP & MySQL", "Laravel Framework", "UI/UX Design (Figma)"];
 const SOCIAL_LINKS = [
   { icon: Github, link: "https://github.com/panditaa07" },
-  { icon: Instagram, link: "https://www.instagram.com/panditaapta_?igsh=aDd6eXNoM2ZrNTNx&utm_source=qr" }
+  { icon: Instagram, link: "https://www.instagram.com/panditaapta_?igsh=aDd6eXNoM2ZrNTNx&utm_source=qr" },
+  { icon: Linkedin, link: "https://www.linkedin.com/in/pandita-apta-99a5943a7?utm_source=share_via&utm_content=profile&utm_medium=member_ios" }
 ];
 
 const Home = () => {

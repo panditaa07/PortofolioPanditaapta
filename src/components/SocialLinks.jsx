@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import {
   Github,
   Instagram,
+  Linkedin,
   ExternalLink,
 } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { WhatsApp } from "@mui/icons-material";
 
 const socialLinks = [
   {
@@ -19,13 +19,13 @@ const socialLinks = [
     gradient: "from-[#833AB4] via-[#E4405F] to-[#FCAF45]",
   },
   {
-    name: "WhatsApp",
-    displayName: "WhatsApp",
-    subText: "@pann",
-    icon: WhatsApp,
-    url: "https://wa.me/6282126882007",
-    color: "#25D366",
-    gradient: "from-[#075E54] to-[#075E54]",
+    name: "LinkedIn",
+    displayName: "Linkedin",
+    subText: "@pandita apta",
+    icon: Linkedin,
+    url: "https://www.linkedin.com/in/pandita-apta-99a5943a7?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+    color: "#0A66C2",
+    gradient: "from-[#0A66C2] to-[#0077B5]",
   },
   {
     name: "GitHub",
@@ -84,7 +84,7 @@ const socialLinks = [
 ];
 
 const SocialLinks = () => {
-  const [instagram, whatsapp, github, tiktok] = socialLinks;
+  const [instagram, linkedin, github, tiktok] = socialLinks;
 
   useEffect(() => {
     AOS.init({
@@ -106,9 +106,9 @@ const SocialLinks = () => {
       </h3>
 
       <div className="flex flex-col gap-4">
-        {/* First Row - Instagram & WhatsApp */}
+        {/* First Row - Instagram & LinkedIn */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[instagram, whatsapp, github, tiktok].map((link, index) => (
+          {[instagram, linkedin, github, tiktok].map((link, index) => (
             <a
               key={link.name}
               href={link.url}
