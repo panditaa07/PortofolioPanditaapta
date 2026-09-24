@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { supabase } from "../supabase";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -85,11 +84,9 @@ const techStacks = [
   { icon: "bootstrap.svg", language: "Bootstrap" },
 ];
 
-export default function FullWidthTabs() {
+export default function FullWidthTabs({ projects = [], certificates = [] }) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const [projects, setProjects] = useState([]);
-  const [certificates, setCertificates] = useState([]);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
   const isMobile = window.innerWidth < 768;
@@ -98,41 +95,6 @@ export default function FullWidthTabs() {
   useEffect(() => {
     AOS.init({ once: false });
   }, []);
-
-  const fetchData = useCallback(async () => {
-    try {
-      const [projectsResponse, certificatesResponse] = await Promise.all([
-        supabase.from("projects").select("*").order("id", { ascending: true }),
-        supabase.from("certificates").select("*").order("id", { ascending: true }),
-      ]);
-
-      if (projectsResponse.error) throw projectsResponse.error;
-      if (certificatesResponse.error) throw certificatesResponse.error;
-
-      const projectData = projectsResponse.data || [];
-      const certificateData = certificatesResponse.data || [];
-
-      setProjects(projectData);
-      setCertificates(certificateData);
-
-      localStorage.setItem("projects", JSON.stringify(projectData));
-      localStorage.setItem("certificates", JSON.stringify(certificateData));
-    } catch (error) {
-      // Error fetching data from Supabase
-    }
-  }, []);
-
-  useEffect(() => {
-    const cachedProjects = localStorage.getItem("projects");
-    const cachedCertificates = localStorage.getItem("certificates");
-
-    if (cachedProjects && cachedCertificates) {
-      setProjects(JSON.parse(cachedProjects));
-      setCertificates(JSON.parse(cachedCertificates));
-    }
-
-    fetchData();
-  }, [fetchData]);
 
   const handleChange = (event, newValue) => setValue(newValue);
 
@@ -144,12 +106,15 @@ export default function FullWidthTabs() {
     }
   }, []);
 
+  const safeProjects = projects || [];
+  const safeCertificates = certificates || [];
+
   const displayedProjects = showAllProjects
-    ? projects
-    : projects.slice(0, initialItems);
+    ? safeProjects
+    : safeProjects.slice(0, initialItems);
   const displayedCertificates = showAllCertificates
-    ? certificates
-    : certificates.slice(0, initialItems);
+    ? safeCertificates
+    : safeCertificates.slice(0, initialItems);
 
   return (
     <div
@@ -257,7 +222,7 @@ export default function FullWidthTabs() {
               ))}
             </div>
           </div>
-          {projects.length > initialItems && (
+          {safeProjects.length > initialItems && (
             <div className="mt-6 w-full flex justify-start">
               <ToggleButton onClick={() => toggleShowMore("projects")} isShowingMore={showAllProjects} />
             </div>
@@ -278,7 +243,7 @@ export default function FullWidthTabs() {
               ))}
             </div>
           </div>
-          {certificates.length > initialItems && (
+          {safeCertificates.length > initialItems && (
             <div className="mt-6 w-full flex justify-start">
               <ToggleButton onClick={() => toggleShowMore("certificates")} isShowingMore={showAllCertificates} />
             </div>

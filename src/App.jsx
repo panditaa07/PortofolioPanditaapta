@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { supabase } from "./supabase";
 
 import "./index.css";
 
@@ -15,7 +16,7 @@ import WelcomeScreen from "./Pages/WelcomeScreen";
 import { AnimatePresence } from "framer-motion";
 import NotFoundPage from "./Pages/404";
 
-const LandingPage = ({ showWelcome, setShowWelcome, showContent }) => {
+const LandingPage = ({ showWelcome, setShowWelcome, showContent, projects, certificates }) => {
     return (
         <>
             <AnimatePresence mode="wait">
@@ -34,9 +35,9 @@ const LandingPage = ({ showWelcome, setShowWelcome, showContent }) => {
                 <Navbar />
                 <AnimatedBackground />
                 <Home />
-                <About />
-                <Skills />
-                <Portofolio />
+                <About projects={projects} certificates={certificates} />
+                <Skills projects={projects} certificates={certificates} />
+                <Portofolio projects={projects} certificates={certificates} />
                 <ContactPage />
 
                 <footer className="text-center py-4">
@@ -66,12 +67,32 @@ const ProjectPageLayout = () => (
 function App() {
     const [showWelcome, setShowWelcome] = useState(true);
     const [showContent, setShowContent] = useState(false);
+    const [projects, setProjects] = useState(null);
+    const [certificates, setCertificates] = useState(null);
 
     useEffect(() => {
         if (!showWelcome) {
             setTimeout(() => setShowContent(true), 100);
         }
     }, [showWelcome]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [projectsResponse, certificatesResponse] = await Promise.all([
+                    supabase.from("projects").select("*").order("id", { ascending: true }),
+                    supabase.from("certificates").select("*").order("id", { ascending: true }),
+                ]);
+
+                if (projectsResponse.data) setProjects(projectsResponse.data);
+                if (certificatesResponse.data) setCertificates(certificatesResponse.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <Routes>
@@ -82,6 +103,8 @@ function App() {
                         showWelcome={showWelcome}
                         setShowWelcome={setShowWelcome}
                         showContent={showContent}
+                        projects={projects}
+                        certificates={certificates}
                     />
                 }
             />

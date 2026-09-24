@@ -87,7 +87,11 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
           data-aos-duration="1500"
           data-aos-anchor-placement="top-bottom"
         >
-          {value}
+          {value === null ? (
+            <span className="inline-block w-12 h-8 bg-white/10 animate-pulse rounded-lg" />
+          ) : (
+            value
+          )}
         </span>
       </div>
 
@@ -116,23 +120,20 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
   </div>
 ));
 
-const AboutPage = () => {
+const AboutPage = ({ projects, certificates }) => {
   // Memoized calculations
   const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
-    const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
-    const storedCertificates = JSON.parse(localStorage.getItem("certificates") || "[]");
-
     const startDate = new Date("2021-11-06");
     const today = new Date();
     const experience = today.getFullYear() - startDate.getFullYear() -
       (today < new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate()) ? 1 : 0);
 
     return {
-      totalProjects: storedProjects.length,
-      totalCertificates: storedCertificates.length,
+      totalProjects: projects ? projects.length : null,
+      totalCertificates: certificates ? certificates.length : null,
       YearExperience: experience
     };
-  }, []);
+  }, [projects, certificates]);
 
   // Optimized AOS initialization
   useEffect(() => {
